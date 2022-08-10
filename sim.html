@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>micro mBots</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser-raycaster@0.10.4/dist/phaser-raycaster.min.js"></script>
+
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+    <script src="main.js"></script>
+    <script src="mBot.js"></script>
+    <script src="microbit.js"></script>
+    <script src="radio.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    
+var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    backgroundColor: '#f7cac9',
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update,
+        //render: render
+    },
+    plugins: {
+        scene: [
+            {
+                key: 'PhaserRaycaster',
+                plugin: PhaserRaycaster,
+                mapping: 'raycasterPlugin'
+            }
+        ]
+    }
+};
+
+
+var game = new Phaser.Game(config);
+var microbits = [];
+var mBots;
+var zombies;
+function preload ()
+{
+    this.load.image('mBot', 'assets/mBot.png');
+}
+function create ()
+{
+    let numberOfmicrobits = 10;
+
+    globalScene = game.scene.scenes[0];
+    globalScene.raycaster = globalScene.raycasterPlugin.createRaycaster({debug:false});
+    globalScene.ray = globalScene.raycaster.createRay();
+
+    mBots = this.physics.add.group();
+
+    for(let i=0;i<numberOfmicrobits;i++){
+        //each microbit creates an mBot to add to group above
+        microbits.push(new Microbit(this, i));
+        microbits[i].wrapFunctions();
+    }
+    
+    globalScene.raycaster.mapGameObjects(mBots.getChildren());
+
+    boundaries = this.physics.add.group();
+    createBoundary(5, 300, 10, 600);
+    createBoundary(795, 300, 10, 600);
+    createBoundary(400, 5, 800, 10);
+    createBoundary(400, 595, 800, 10);
+    globalScene.raycaster.mapGameObjects(boundaries.getChildren());
+    
+    globalScene.physics.add.collider(mBots, mBots);
+    globalScene.physics.add.collider(mBots, boundaries);
+
+    
+}
+function createBoundary(x,y,width,height){
+    let temp = globalScene.physics.add.sprite(x, y, '');
+    temp.setDisplaySize(width, height);
+    temp.body.setImmovable(true);
+    temp.setPushable(false);
+    boundaries.add(temp);
+}
+
+function update ()
+{
+    //if they have a forever function, run it.
+    microbits.forEach(microbit => {
+        microbit.forever();
+    });
+    
+
+}
+
+
+
+
+</script>
+
+</body>
+</html>
