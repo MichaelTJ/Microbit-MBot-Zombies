@@ -13,3 +13,5 @@ Choose the number of microbits/MBots in sim.html.
 Write the program for the microbit in main.js. 
 Wrappers emulate the microbits and MBots. 
 Copy your code to makecode -> Javascript to upload it to real microbits.
+
+Made using node, express, phaser3. In terminal run 'node app.js' to run the simulator.
