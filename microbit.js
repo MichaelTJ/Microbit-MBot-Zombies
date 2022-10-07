@@ -77,7 +77,8 @@ function getSignalStrength(m1,m2){
     //should change to logorithmic
     //function so 30cm = -30, 200cm ~ -60 300cm = -90
     let dist = Phaser.Math.Distance.BetweenPoints(m1,m2)//distance function,
-    return -dist;
+    
+    return -dist+Phaser.Math.Between(-5,5);
 }
 
 class radio {
