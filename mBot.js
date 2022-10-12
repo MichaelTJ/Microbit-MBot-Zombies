@@ -15,7 +15,7 @@ class mBot extends Phaser.Physics.Arcade.Sprite {
         this.setAngularVelocity(0,0);
     }
     driveForwards(){
-        this.stop();
+        //this.stop();
         if(this.isObjectInFront()){
             this.setAngularVelocity(-20);
             return;
@@ -24,16 +24,16 @@ class mBot extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(newVel.x,newVel.y);
     }
     driveBackwards(){
-        this.stop();
+        //this.stop();
         let newVel = globalScene.physics.velocityFromAngle(this.angle, -this.speed);
         this.setVelocity(newVel.x,newVel.y);
     }
     turnLeft(){
-        this.stop();
+        //this.stop();
         this.setAngularVelocity(-10);
     }
     turnRight(){
-        this.stop();
+        //this.stop();
         this.setAngularVelocity(10);
     }
     zombie(){

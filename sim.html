@@ -74,6 +74,7 @@ function create ()
         for(let i=0;i<numberOfmicrobits;i++){
             //each microbit creates an mBot to add to group above
             microbits.push(new Microbit(this, i));
+            
             microbits[i].wrapFunctions();
         }
     }
@@ -115,6 +116,7 @@ function update ()
 {
     //if they have a forever function, run it.
     microbits.forEach(microbit => {
+        curMicro = microbit;
         microbit.forever();
     });
     
