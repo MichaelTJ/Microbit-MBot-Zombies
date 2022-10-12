@@ -14,4 +14,7 @@ Write the program for the microbit in main.js.
 Wrappers emulate the microbits and MBots. 
 Copy your code to makecode -> Javascript to upload it to real microbits.
 
-Made using node, express, phaser3. In terminal run 'node app.js' to run the simulator.
+Made using node, express, phaser3. 
+In terminal run 'npm install' to install the dependencies
+Run 'node app.js' to run the simulator.
+Open a web browser and go to localhost:8080 to watch the simulator
