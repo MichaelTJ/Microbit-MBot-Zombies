@@ -6,7 +6,8 @@ function scratchCode(){
     
     radio.setGroup(1);
     radio.onReceivedNumber(function (receivedNumber) {
-        if (500000 > radio.receivedPacket(RadioPacketProperty.SerialNumber)) {
+        
+        if (500000 > control.deviceSerialNumber()) {
             basic.showLeds(`
                 # # # # #
                 . . . . .
@@ -15,11 +16,26 @@ function scratchCode(){
                 . . . . .
                 `)
         }
+        else{
+            basic.showLeds(`
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+            `)
+        }
     })
     basic.forever(function () {
         radio.sendNumber(0)
     })
-    
+    basic.showLeds(`
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+                . . . . .
+                `)
 }
 
 

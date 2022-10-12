@@ -47,7 +47,16 @@ class basic {
     
     static pause(time){
         //setup a timer with callback
+        this.waitup(time);
+
     }
+    static async waitup(time) {
+        await this.delay(time)
+    }
+    static delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
     static forever(newFunc){
         //only need to write this func once.
         if(curMicro.forever== undefined){
@@ -124,11 +133,11 @@ class radio {
             //add delay with callback
             RadioPacketProperty = new RadioPacketPropertyHolder(
                 num, 
-                getSignalStrength(curMicro, microbit),
+                getSignalStrength(originalMicro, curMicro),
                 game.getTime(),//curTime
-                microbit.serialNumber);
+                originalMicro.serialNumber);
             //microbit.curPacket = packet;
-            microbit.onReceivedNumber(num);
+            curMicro.onReceivedNumber(num);
             //needs testing to see if originalMicro gets changed
             curMicro = originalMicro;
             RadioPacketProperty = originalPacket;
@@ -177,5 +186,11 @@ class radio {
 
     static setTransmitPower(num){
 
+    }
+}
+
+class control{
+    static deviceSerialNumber(){
+        return curMicro.serialNumber;
     }
 }

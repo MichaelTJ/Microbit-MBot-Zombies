@@ -8,6 +8,7 @@ class mBot extends Phaser.Physics.Arcade.Sprite {
         //this.curActionFunctions = [];
         mBots.add(globalScene.physics.add.existing(this));
         this.setScale(0.05);
+        this.setFriction(0.5);
     }
     stop(){
         this.setVelocity(0,0);
