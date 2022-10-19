@@ -47,14 +47,15 @@ class Microbit {
 class basic {
     
     static async pause(time){
-        let x = new basic();
-        await x.waitup(time);
+        let contextMicro = curMicro;
+        await this.waitup(time);
+        curMicro = contextMicro;
         //await this.waitup(time);
         //setup a timer with callback
         //setTimeout(resolve, time)
     }
 
-    waitup(time) {
+    static waitup(time) {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
