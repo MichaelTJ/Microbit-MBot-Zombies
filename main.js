@@ -1,4 +1,4 @@
-function scratchCode(){}
+function scratchCode(){
     
     //put your microbit code here
     //instructions given to mBot through basic.showLeds()
@@ -28,6 +28,7 @@ function scratchCode(){}
 
 
     return 'leave these last 2 lines';
+
 }
 
 
