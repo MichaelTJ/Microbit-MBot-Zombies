@@ -4,38 +4,30 @@ function scratchCode(){
     //instructions given to mBot through basic.showLeds()
     //there are wrappers for most functions.
     
-    radio.setGroup(1);
-    radio.onReceivedNumber(function (receivedNumber) {
-        
-        if (500000 > control.deviceSerialNumber()) {
-            basic.showLeds(`
+    basic.forever(async function () {
+        basic.showLeds(`
                 # # # # #
-                . . . . .
-                # # # # #
-                . . . . .
-                . . . . .
-                `)
-        }
-        else{
-            basic.showLeds(`
-                . . . . .
-                . . . . .
-                . . . . .
-                . . . . .
-                . . . . .
-            `)
-        }
-    })
-    basic.forever(function () {
-        radio.sendNumber(0)
-    })
-    basic.showLeds(`
-                . . . . .
                 . . . . .
                 . . . . .
                 . . . . .
                 . . . . .
                 `)
+            console.log('before');
+            await basic.pause(3000)
+            basic.showLeds(`
+                # # # # #
+                # # # # #
+                # # # # #
+                . . . . .
+                . . . . .
+                `)
+            console.log('after');
+            await basic.pause(3000)
+    })
+    
+
+
+    return 'leave these last 2 lines';
 }
 
 

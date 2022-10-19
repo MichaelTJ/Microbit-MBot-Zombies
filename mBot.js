@@ -15,7 +15,8 @@ class mBot extends Phaser.Physics.Arcade.Sprite {
         this.setAngularVelocity(0,0);
     }
     driveForwards(){
-        //this.stop();
+        //stop in case of angular momentum
+        this.stop();
         if(this.isObjectInFront()){
             this.setAngularVelocity(-20);
             return;
@@ -24,16 +25,19 @@ class mBot extends Phaser.Physics.Arcade.Sprite {
         this.setVelocity(newVel.x,newVel.y);
     }
     driveBackwards(){
-        //this.stop();
+        //stop in case of angular momentum
+        this.stop();
         let newVel = globalScene.physics.velocityFromAngle(this.angle, -this.speed);
         this.setVelocity(newVel.x,newVel.y);
     }
     turnLeft(){
-        //this.stop();
+        //stop in case of angular momentum
+        this.stop();
         this.setAngularVelocity(-10);
     }
     turnRight(){
-        //this.stop();
+        //stop in case of angular momentum
+        this.stop();
         this.setAngularVelocity(10);
     }
     zombie(){
@@ -54,7 +58,7 @@ class mBot extends Phaser.Physics.Arcade.Sprite {
         //cast rays in a cone
         let intersections = globalScene.ray.castCone();
         let smallestDist = Number.MAX_SAFE_INTEGER;
-        console.log(this._id);
+        //console.log(this._id);
         intersections.forEach(intersection => {
             if(intersection.object!=this){
                 //get distance

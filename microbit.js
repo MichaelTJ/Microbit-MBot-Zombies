@@ -26,6 +26,7 @@ class Microbit {
         this.onReceivedNumber = undefined;
         this.onReceivedString = undefined;
         this.onReceivedvalue = undefined;
+        this.isProcessingLast = false;
         this.forever = undefined;
         this.serialNumber = Phaser.Math.Between(0, 1000000);
         this.curPacket = undefined;
@@ -45,22 +46,27 @@ class Microbit {
 
 class basic {
     
-    static pause(time){
+    static async pause(time){
+        let x = new basic();
+        await x.waitup(time);
+        //await this.waitup(time);
         //setup a timer with callback
-        this.waitup(time);
+        //setTimeout(resolve, time)
+    }
 
-    }
-    static async waitup(time) {
-        await this.delay(time)
-    }
-    static delay(time) {
+    waitup(time) {
         return new Promise(resolve => setTimeout(resolve, time));
     }
 
-    static forever(newFunc){
+    static forever(func){
         //only need to write this func once.
         if(curMicro.forever== undefined){
-            curMicro.forever = newFunc;
+            curMicro.forever = async() => {
+                if(curMicro.isProcessingLast){return;}
+                curMicro.isProcessingLast=true;
+                await func();
+                curMicro.isProcessingLast=false;
+            }
         }
     }
     //depending on the number of lights, mBot drives a certain way.
@@ -103,19 +109,34 @@ class radio {
     static onReceivedNumber(func) {
         //only need to write this func once.
         if(curMicro.onReceivedNumber== undefined){
-            curMicro.onReceivedNumber = func;
+            curMicro.onReceivedNumber = async () => {
+                if(curMicro.isProcessingLast){return;}
+                curMicro.isProcessingLast=true;
+                await func();
+                curMicro.isProcessingLast=false;
+            }
         }
     }
     
     static onReceivedString(func) {
         if(curMicro.onReceivedString== undefined){
-            curMicro.onReceivedString = func;
+            curMicro.onReceivedString = async () => {
+                if(curMicro.isProcessingLast){return;}
+                curMicro.isProcessingLast=true;
+                await func();
+                curMicro.isProcessingLast=false;
+            }
         }
     }
     
     static onReceivedValue(func) {
         if(curMicro.onReceivedValue== undefined){
-            curMicro.onReceivedValue = func;
+            curMicro.onReceivedValue = async () => {
+                if(curMicro.isProcessingLast){return;}
+                curMicro.isProcessingLast=true;
+                await func();
+                curMicro.isProcessingLast=false;
+            }
         }
     }
     

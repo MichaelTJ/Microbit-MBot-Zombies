@@ -1,0 +1,29 @@
+<script>
+function sleep(ms) {
+    return new Promise(
+      resolve => setTimeout(resolve, ms)
+    );
+  }
+  
+  async function mainCode(element){
+    //pause this stuff
+    await delayedGreeting(element);
+    //trying not to say OHNO until the end
+    console.log("OHNO");
+  }
+
+  async function delayedGreeting(i) {
+    console.log("Hello"+i);
+    await sleep(2000);
+    console.log("World!"+i);
+    await sleep(2000);
+    console.log("Goodbye!"+i);
+    return x;
+  }
+  const arr = ['a','b','c','d','e'];
+    arr.forEach(element => {
+      mainCode(element);
+    });
+
+  
+  </script>

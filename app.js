@@ -7,6 +7,10 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/sim.html');
 });
 
+app.get('/asy', function (req, res) {
+  res.sendFile(__dirname + '/asyncTest.html');
+});
+
 app.listen(8080, () => {
   console.log('Server listening on http://localhost:8080');
 });
