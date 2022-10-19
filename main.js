@@ -1,4 +1,4 @@
-function scratchCode(){
+function scratchCode(){}
     
     //put your microbit code here
     //instructions given to mBot through basic.showLeds()
