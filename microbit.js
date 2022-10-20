@@ -65,7 +65,9 @@ class basic {
             curMicro.forever = async() => {
                 if(curMicro.isProcessingLast){return;}
                 curMicro.isProcessingLast=true;
+                let contextMicro = curMicro;
                 await func();
+                curMicro = contextMicro;
                 curMicro.isProcessingLast=false;
             }
         }
@@ -113,7 +115,9 @@ class radio {
             curMicro.onReceivedNumber = async () => {
                 if(curMicro.isProcessingLast){return;}
                 curMicro.isProcessingLast=true;
+                let contextMicro = curMicro;
                 await func();
+                curMicro = contextMicro;
                 curMicro.isProcessingLast=false;
             }
         }
@@ -124,7 +128,9 @@ class radio {
             curMicro.onReceivedString = async () => {
                 if(curMicro.isProcessingLast){return;}
                 curMicro.isProcessingLast=true;
+                let contextMicro = curMicro;
                 await func();
+                curMicro = contextMicro;
                 curMicro.isProcessingLast=false;
             }
         }
@@ -135,7 +141,9 @@ class radio {
             curMicro.onReceivedValue = async () => {
                 if(curMicro.isProcessingLast){return;}
                 curMicro.isProcessingLast=true;
+                let contextMicro = curMicro;
                 await func();
+                curMicro = contextMicro;
                 curMicro.isProcessingLast=false;
             }
         }
@@ -150,7 +158,8 @@ class radio {
         let originalPacket = RadioPacketProperty;
         microbits.forEach(microbit => {
             //don't send to self
-            if(microbit==curMicro){return;}
+            if(microbit.id==curMicro.id){return;}
+            if(microbit.isProcessingLast){return;}
             curMicro = microbit;
             //add delay with callback
             RadioPacketProperty = new RadioPacketPropertyHolder(
