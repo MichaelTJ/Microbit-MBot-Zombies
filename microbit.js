@@ -94,7 +94,7 @@ class input {
 function getSignalStrength(m1,m2){
     //should change to logorithmic
     //function so 30cm = -30, 200cm ~ -60 300cm = -90
-    let dist = Phaser.Math.Distance.BetweenPoints(m1,m2)//distance function,
+    let dist = Phaser.Math.Distance.BetweenPoints(m1.mBot,m2.mBot)//distance function,
     
     return -dist+Phaser.Math.Between(-5,5);
 }

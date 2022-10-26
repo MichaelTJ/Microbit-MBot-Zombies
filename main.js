@@ -11,27 +11,14 @@ function scratchCode(){
     //radio.onReceivedNumber(function (receivedNumber) {
     //becomes:
     //radio.onReceivedNumber(async function (receivedNumber) {
-    
-    radio.onReceivedNumber(async function (receivedNumber) {
-        if (control.deviceSerialNumber() < 500000) {
-            await basic.showLeds(`
-                # # # # #
-                . . . . .
-                . . . . .
-                . . . . .
-                . . . . .
-                `)
-            await basic.pause(500)
-            await basic.showLeds(`
-                # # # # #
-                # # # # #
-                # # # # #
-                . . . . .
-                . . . . .
-                `)
-            await basic.pause(500)
-        } else {
-            await basic.showLeds(`
+        radio.onReceivedNumber(async function (receivedNumber) {
+            radioSig = radio.receivedPacket(RadioPacketProperty.SignalStrength)
+            console.log(radioSig)
+        })
+        let radioSig = 0
+        radio.setGroup(1)
+        basic.forever(async function () {
+            basic.showLeds(`
                 # # # # #
                 # # # # #
                 . . . . .
@@ -39,15 +26,19 @@ function scratchCode(){
                 . . . . .
                 `)
             await basic.pause(500)
-                
-        }
+            basic.showLeds(`
+                # # # # #
+                # # # # #
+                # # # # #
+                . . . . .
+                . . . . .
+                `)
+            await basic.pause(500)
+            radio.sendNumber(0)
+        })
         
-        radio.sendNumber(0)
-    })
-    radio.setGroup(1)
-    basic.forever(async function () {
-        radio.sendNumber(0)
-    })
+        
+        
     
 }
 
