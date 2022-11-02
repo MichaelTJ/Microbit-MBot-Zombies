@@ -1,4 +1,4 @@
-   
+
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -30,6 +30,7 @@ var config = {
 
 var game = new Phaser.Game(config);
 var microbits = [];
+var beacons = [];
 var mBots;
 var zombies;
 function preload ()
@@ -40,7 +41,6 @@ function preload ()
 }
 function create ()
 {
-    let level = 0;
     globalScene = game.scene.scenes[0];
     globalScene.raycaster = globalScene.raycasterPlugin.createRaycaster({debug:false});
     globalScene.ray = globalScene.raycaster.createRay();
@@ -48,7 +48,20 @@ function create ()
     mBots = this.physics.add.group();
 
     if(level === 0){
-        let numberOfmicrobits = 2;
+        let numberOfmicrobits = 1;
+        for(let i=0;i<numberOfmicrobits;i++){
+            //each microbit creates an mBot to add to group above
+            microbits.push(new Microbit(this, i));
+            
+            microbits[i].wrapFunctions();
+        }
+        microbits.push(new Beacon(this, 255, 'green'));
+        
+
+    }
+
+    else if(level === 1){
+        let numberOfmicrobits = 10;
         for(let i=0;i<numberOfmicrobits;i++){
             //each microbit creates an mBot to add to group above
             microbits.push(new Microbit(this, i));
@@ -56,7 +69,7 @@ function create ()
             microbits[i].wrapFunctions();
         }
     }
-    else if(level ===1){
+    else if(level ===2){
         
         let numberOfmicrobits = 5;
         for(let i=0;i<numberOfmicrobits;i++){

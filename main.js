@@ -1,3 +1,4 @@
+var level = 0;
 function scratchCode(){
     
     //paste your makecode microbit code here
