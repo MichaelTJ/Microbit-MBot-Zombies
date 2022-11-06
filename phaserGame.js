@@ -103,19 +103,66 @@ function createBoundary(x,y,width,height){
     boundaries.add(temp);
 }
 
+//Fill in the blanks (_____) with a helpful comment
+//________________________________________
+var ourData = [];
+//Special function that runs once per frame of the game
 function update ()
 {
-    //if they have a forever function, run it.
+    //________________________________________
+    var thisFrameData = [];
+    //________________________________________
+    thisFrameData.push(this.time.now);
+
+    //foreach microbit in the array of microbits (robots)
     microbits.forEach(microbit => {
+        //____________________________________
+        thisFrameData.push(microbit.mBot.x)
+        thisFrameData.push(microbit.mBot.y)
+
+        //if the microbit has a forever function
+        //deal with async await issues then run it
         curMicro = microbit;
         if(curMicro.isProcessingLast){return;}
         curMicro.forever();
     });
-
-
-    
-
+    //_________________________________________
+    ourData.push(thisFrameData);
 }
+
+
+//create a function that ______________________  
+function download_csv_file() {  
+  
+    //____________________________________________ 
+    var csv = 'Time (ms),'
+    for(let i=0;i<microbits.length;i++){
+        csv += `M${i} x, M${i} y,`;
+    } 
+    csv+='\n';
+    
+    //____________________________________________ 
+    ourData.forEach(function(row) {  
+            csv += row.join(',');  
+            csv += "\n";  
+    });  
+   
+    //display the created CSV data on the web browser   
+    //document.write(csv);  
+  
+    //____________________________________________
+    var hiddenElement = document.createElement('a');  
+    //Set the csv data as what opens when you click the link
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);  
+    //Set the target of the link to a new tab so it doesn't stop
+    //the sim
+    hiddenElement.target = '_blank';  
+      
+    //____________________________________________ 
+    hiddenElement.download = 'MBot data.csv';
+    //____________________________________________  
+    hiddenElement.click();  
+}  
 
 
 
