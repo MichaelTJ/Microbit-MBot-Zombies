@@ -2,8 +2,9 @@
 class mBot extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, "mBot");
+        this.setRotation(Phaser.Math.Angle.Random());
         globalScene.add.existing(this);
-        this.speed = 20;
+        this.speed = 30;
         //this.followText = globalScene.add.text(0, 0, id);
         //this.curActionFunctions = [];
         mBots.add(globalScene.physics.add.existing(this));
@@ -33,12 +34,12 @@ class mBot extends Phaser.Physics.Arcade.Sprite {
     turnLeft(){
         //stop in case of angular momentum
         this.stop();
-        this.setAngularVelocity(-10);
+        this.setAngularVelocity(-20);
     }
     turnRight(){
         //stop in case of angular momentum
         this.stop();
-        this.setAngularVelocity(10);
+        this.setAngularVelocity(20);
     }
     zombie(){
         //TODO
