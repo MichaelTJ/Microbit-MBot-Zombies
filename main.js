@@ -12,31 +12,44 @@ function scratchCode(){
     //radio.onReceivedNumber(function (receivedNumber) {
     //becomes:
     //radio.onReceivedNumber(async function (receivedNumber) {
+
+    //numLights => Driving instructions
+    //0 => stop()
+    //5 => driveBackwards()
+    //10 => driveForwards()
+    //15 => turnLeft()
+    //20 => turnRight()
+
         radio.onReceivedNumber(async function (receivedNumber) {
-            radioSig = radio.receivedPacket(RadioPacketProperty.SignalStrength)
-            console.log(radioSig)
+            curReading = radio.receivedPacket(RadioPacketProperty.SignalStrength)
+            if (prevReading < curReading) {
+                //drive 
+                basic.showLeds(`
+                    # # # # #
+                    # # # # #
+                    . . . . .
+                    . . . . .
+                    . . . . .
+                    `)
+            } else {
+                basic.showLeds(`
+                    # # # # #
+                    . . . . .
+                    . . . . .
+                    . . . . .
+                    . . . . .
+                    `)
+            }
+            prevReading = curReading
         })
-        let radioSig = 0
-        radio.setGroup(1)
-        basic.forever(async function () {
-            basic.showLeds(`
-                # # # # #
-                # # # # #
-                . . . . .
-                . . . . .
-                . . . . .
-                `)
-            await basic.pause(500)
-            basic.showLeds(`
-                # # # # #
-                # # # # #
-                # # # # #
-                . . . . .
-                . . . . .
-                `)
-            await basic.pause(500)
-            radio.sendNumber(0)
+        let prevReading = 0
+        let curReading = 0
+        curReading = 0
+        prevReading = 0
+        basic.forever(function () {
+            
         })
+        
         
         
         

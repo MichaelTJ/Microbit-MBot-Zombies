@@ -16,13 +16,17 @@ class Beacon extends Microbit{
             delay: 3000,                // ms
             callback: this.sendBeaconRadioSig,
             //args: [],
-            //callbackScope: this,
+            callbackScope: this,
             loop: true
         });
         
     }
     sendBeaconRadioSig(){
+        //console.log('sig sent');
+        let origMicro = curMicro;
+        curMicro=this;
         radio.sendNumber(0)
+        curMicro = origMicro;
     }
 
 }
