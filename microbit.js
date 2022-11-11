@@ -27,7 +27,7 @@ class Microbit {
         this.onReceivedString = undefined;
         this.onReceivedvalue = undefined;
         this.isProcessingLast = false;
-        this.forever = undefined;
+        this.forever = () => {};
         this.serialNumber = Phaser.Math.Between(0, 1000000);
         this.curPacket = undefined;
         curMicro = this;
