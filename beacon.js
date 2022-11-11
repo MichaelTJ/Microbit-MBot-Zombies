@@ -8,13 +8,14 @@ class Beacon extends Microbit{
         }
         this.mBot.setScale(1);
         this.mBot.setSize(30,30,true);
+        this.mBot.setImmovable(true);
         this.forever = () => {}
         this.onReceivedNumber = () => {}
         this.onStart(scene)
     }
     onStart(scene){
         let timer = scene.time.addEvent({
-            delay: 2000,                // ms
+            delay: 1000,                // ms
             callback: this.sendBeaconRadioSig,
             //args: [],
             callbackScope: this,

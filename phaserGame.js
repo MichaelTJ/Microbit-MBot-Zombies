@@ -48,7 +48,7 @@ function create ()
     mBots = this.physics.add.group();
 
     if(level === 0){
-        let numberOfmicrobits = 1;
+        let numberOfmicrobits = 10;
         for(let i=0;i<numberOfmicrobits;i++){
             //each microbit creates an mBot to add to group above
             microbits.push(new Microbit(this, i));
