@@ -48,6 +48,18 @@ function create ()
     mBots = this.physics.add.group();
 
     if(level === 0){
+        let numberOfmicrobits = 1;
+        for(let i=0;i<numberOfmicrobits;i++){
+            //each microbit creates an mBot to add to group above
+            microbits.push(new Microbit(this, i));
+            
+            microbits[i].wrapFunctions();
+        }
+        microbits.push(new Beacon(this, 255, 'green'));
+        
+
+    }
+    else if(level === 1){
         let numberOfmicrobits = 10;
         for(let i=0;i<numberOfmicrobits;i++){
             //each microbit creates an mBot to add to group above
@@ -60,7 +72,7 @@ function create ()
 
     }
 
-    else if(level === 1){
+    else if(level === 2){
         let numberOfmicrobits = 10;
         for(let i=0;i<numberOfmicrobits;i++){
             //each microbit creates an mBot to add to group above
@@ -69,7 +81,7 @@ function create ()
             microbits[i].wrapFunctions();
         }
     }
-    else if(level ===2){
+    else if(level ===3){
         
         let numberOfmicrobits = 5;
         for(let i=0;i<numberOfmicrobits;i++){
